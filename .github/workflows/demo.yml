@@ -38,5 +38,5 @@ jobs:
         run: |
           echo Running tests...
           nosetests test/ --with-coverage --cover-package=severn --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
-          ls ./coverage
+          ls .
           cat ./coverage/index.html
