@@ -1,4 +1,4 @@
-name: Github Actions Demo
+name: actions-demo
 
 # Controls when the action will run. 
 on:
