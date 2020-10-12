@@ -57,17 +57,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Examine the context passed from the job
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
-
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJson(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-
       # Create python env
       - name: Install Python 3
         uses: actions/setup-python@v2
@@ -95,6 +84,15 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      # Set variables for later use
+      - name: Declare Variables
+        id: vars
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "##[set-output name=git_sha;]$(git rev-parse --short HEAD)"
+          echo "##[set-output name=git_user;]$(echo ${{ toJson(github.event.head_commit.committer.email) }})"
+
       # Create QEMU
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
