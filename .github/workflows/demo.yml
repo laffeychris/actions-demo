@@ -11,6 +11,44 @@ on:
 
 # Run jobs sequentially or in parallel
 jobs:
+  init:
+    name: Configure context and vars
+    runs-on: ubuntu-latest
+
+    # Examine the context passed from github
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+
+    # Examine the context passed from the job
+    - name: Dump job context
+      env:
+        JOB_CONTEXT: ${{ toJson(job) }}
+      run: echo "$JOB_CONTEXT"
+
+    # Examine the context of the steps
+    - name: Dump steps context
+      env:
+        STEPS_CONTEXT: ${{ toJson(steps) }}
+      run: echo "$STEPS_CONTEXT"
+
+    # Examine the context of the runner
+    - name: Dump runner context
+      env:
+        RUNNER_CONTEXT: ${{ toJson(runner) }}
+      run: echo "$RUNNER_CONTEXT"
+
+    - name: Declare Variables
+      id: vars
+      shell: bash
+      run: |
+        echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        echo "::set-output name=git_short::$(git rev-parse --short HEAD)"
+
+    - name: Echo Context
+      run: echo "Context ${{ github.actor }}"
+
   test:
     name: Unit Test Configuration
     # The type of runner that the job will run on
@@ -28,18 +66,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
 
-      - name: Declare Variables
-        id: vars
-        shell: bash
-        run: |
-          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          echo "::set-output name=git_short::$(git rev-parse --short HEAD)"
-
+      # Test that vars are shared between jobs
       - name: Echo Variables
         run: |
           echo "Branch: ${{ steps.vars.outputs.branch }}"
           echo "Sha: ${{ steps.vars.outputs.git_short }}"
-
 
       # Create python env
       - name: Install Python 3
