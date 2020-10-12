@@ -153,7 +153,7 @@ jobs:
               icon_emoji: ':github:',
               attachments: [{
                 title: `Action - ${{github.repository}} [${{github.run_number}}]`,
-                text: `_Commit - ${{needs.init.outputs.git_sha}} (${{github.head_commit.url}})_\n
+                text: `_Commit - ${{needs.init.outputs.git_sha}} ${{github.head_commit.url}} _\n
             Jobs:\n
             init - ${{needs.init.result}}\n
             test - ${{needs.test.result}}\n
