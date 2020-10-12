@@ -42,6 +42,9 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run Tests & Coverage
+        with:
+          AWS_ACCESS_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
         run: |
           echo Running tests...
           nosetests test/ --with-coverage --cover-package=demo --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
