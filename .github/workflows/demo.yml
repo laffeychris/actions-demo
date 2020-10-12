@@ -41,7 +41,7 @@ jobs:
           echo "git_user: ${{ steps.vars.outputs.git_user }}"
 
   test:
-    name: Unit Test Configuration
+    name: Unit Test & Configuration
     needs: init
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -84,6 +84,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       # Set variables for later use
       - name: Declare Variables
         id: vars
