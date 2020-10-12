@@ -134,6 +134,8 @@ jobs:
       - build
     runs-on: ubuntu-latest
     steps:
+      - name: Echo job name
+        run: echo ${{ job.notify.name }}
       - name: Send slack notification
         uses: 8398a7/action-slack@v3
         with:
