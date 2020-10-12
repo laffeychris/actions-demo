@@ -136,10 +136,16 @@ jobs:
       - build
     runs-on: ubuntu-latest
     steps:
-      - name: Echo job
-        run: echo ${{ toJson(job) }}
-      - name: Echo needs
-        run: echo ${{ toJson(needs) }}
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+
+      - name: Dump needs context
+        env:
+          NEEDS_CONTEXT: ${{ toJson(needs) }}
+        run: echo "$NEEDS_CONTEXT"
+
       - name: Send slack notification
         uses: 8398a7/action-slack@v3
         with:
