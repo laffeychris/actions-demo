@@ -131,27 +131,34 @@ jobs:
     # Send notification to slack/email on status of build
     name: Send Notification of Build Status
     needs:
+      - init
+      - test
       - build
     runs-on: ubuntu-latest
     steps:
-      - name: Echo job name
-        run: echo ${{ job.notify.name }}
+      - name: Echo job
+        run: echo ${{ toJson(job) }}
+      - name: Echo needs
+          run: echo ${{ toJson(needs) }}
       - name: Send slack notification
         uses: 8398a7/action-slack@v3
         with:
           status: custom
           fields: all
-          job_name: ${{ job.notify.name }}
+          job_name: Send Notification of Build Status
           custom_payload: |
             {
               username: 'github-action',
               icon_emoji: ':github:',
               attachments: [{
-                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: `${process.env.AS_JOB}\n
-            (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF}\n
-            by ${process.env.AS_AUTHOR} succeeded in ${process.env.AS_TOOK}`,
-                title: `Action - ${process.env.AS_WORKFLOW}`
+                title: `Action - ${process.env.AS_WORKFLOW}`,
+                text: `_Commit - ${process.env.AS_COMMIT}_\n
+            Jobs:\n
+            ${needs.init.name} - ${needs.init.result}\n
+            ${needs.test.name} - ${needs.test.result}\n
+            ${needs.build.name} - ${needs.build.result}\n\n
+            by ${process.env.AS_AUTHOR}`
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning'
               }]
             }
         env:
