@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "##[set-output name=git_sha;]$(git rev-parse --short HEAD)"
-          echo "##[set-output name=git_user;]$(echo ${{ toJson(github.event.head_commit.committer.email) }})
+          echo "##[set-output name=git_user;]$(echo ${ toJson(github.event.head_commit.committer.email) })
 
   test:
     name: Unit Test Configuration
@@ -52,8 +52,9 @@ jobs:
       # Test that vars are shared between jobs
       - name: Echo Variables
         run: |
-          echo "Branch: ${{ steps.vars.outputs.branch }}"
-          echo "Sha: ${{ steps.vars.outputs.git_short }}"
+          echo "branch: ${{ steps.vars.outputs.branch }}"
+          echo "git-sha: ${{ steps.vars.outputs.git_sha }}"
+          echo "git_user: ${{ steps.vars.outputs.git_user }}"
 
       # Create python env
       - name: Install Python 3
