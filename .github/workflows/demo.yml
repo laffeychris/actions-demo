@@ -57,12 +57,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Test that vars are shared between jobs
-      - name: Echo Variables
-        run: |
-          echo "branch: ${{ jobs.init.steps.vars.outputs.branch }}"
-          echo "git-sha: ${{ jobs.init.steps.vars.outputs.git_sha }}"
-          echo "git_user: ${{ jobs.init.steps.vars.outputs.git_user }}"
+      # Examine the context passed from the job
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
 
       # Create python env
       - name: Install Python 3
