@@ -27,11 +27,17 @@ jobs:
 
       # Set variables for later use
       - name: Declare Variables
-        shell: bash
         id: vars
+        shell: bash
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "##[set-output name=git_sha;]$(git rev-parse --short HEAD)"
+
+      - name: Echo Variables
+        run: |
+          echo "branch: ${{ steps.vars.outputs.branch }}"
+          echo "git-sha: ${{ steps.vars.outputs.git_sha }}"
+          echo "git_user: ${{ steps.vars.outputs.git_user }}"
 
   test:
     name: Unit Test Configuration
