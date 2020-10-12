@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "##[set-output name=git_sha;]$(git rev-parse --short HEAD)"
-          echo "##[set-output name=git_user;]$(echo ${{ toJson(github.event.head_commit.committer.email) }} ))"
+          echo "##[set-output name=git_user;]$(echo ${{ toJson(github.event.head_commit.committer.email) }})"
 
   test:
     name: Unit Test Configuration
@@ -49,6 +49,7 @@ jobs:
 
     # Sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v2
 
       # Test that vars are shared between jobs
       - name: Echo Variables
@@ -110,7 +111,7 @@ jobs:
           push: true
           tags: |
             laffeychris/demo_app:latest
-            laffeychris/demo_app:latest
+            laffeychris/demo_app:${{ steps.vars.outputs.git_sha }}
 
       # Echo image name after build
       - name: Image digest
