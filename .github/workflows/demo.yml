@@ -37,6 +37,8 @@ jobs:
       - name: Run Tests & Coverage
         run: |
           echo Running tests...
-          nosetests test/ --with-coverage --cover-package=severn --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
+          nosetests test/ --with-coverage --cover-package=demo --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
           ls .
-          cat ./coverage/index.html
+          echo grep percent coverage
+          echo "cat //html/body/div/div/h1/span" |  xmllint --html --shell coverage/index.html | grep -oP '[\.\d]+(?=%)'
+
