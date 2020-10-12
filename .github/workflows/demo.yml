@@ -70,7 +70,6 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          push: true
           tags: laffeychris/demo_app:latest
 
       # Echo image name after build
