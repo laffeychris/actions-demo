@@ -25,8 +25,8 @@ jobs:
       - name: Echo Event
         run: echo "Event ${{ github.event}}"
 
-      - name: Echo Event head commit json
-        run: echo "Event ${{ toJson(github.event.head_commit) }}"
+      - name: Echo Committer
+        run: echo "Event ${{ toJson(github.event.head_commit.committer.email) }}"
 
       - name: Declare Variables
         id: vars
