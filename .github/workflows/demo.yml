@@ -22,18 +22,17 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
 
-      - name: Echo Event
-        run: echo "Event ${{ github.event}}"
+      # Checks-out your repository under $GITHUB_WORKSPACE
+      - uses: actions/checkout@v2
 
-      - name: Echo Committer
-        run: echo "Event ${{ toJson(github.event.head_commit.committer.email) }}"
-
+      # Set variables for later use
       - name: Declare Variables
-        id: vars
         shell: bash
+        id: vars
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          echo "::set-output name=git_short::$(git rev-parse --short HEAD)"
+          echo "##[set-output name=git_sha;]$(git rev-parse --short HEAD)"
+          echo "##[set-output name=git_user;]$(echo ${{ toJson(github.event.head_commit.committer.email) }})
 
   test:
     name: Unit Test Configuration
@@ -49,8 +48,6 @@ jobs:
 
     # Sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE
-      - uses: actions/checkout@v2
 
       # Test that vars are shared between jobs
       - name: Echo Variables
