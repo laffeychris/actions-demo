@@ -119,8 +119,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            laffeychris/demo_app:latest
-            laffeychris/demo_app:${{ steps.vars.outputs.git_sha }}
+            laffeychris/demo_image:latest
+            laffeychris/demo_image:${{ steps.vars.outputs.git_sha }}
 
       # Echo image name after build
       - name: Image digest
