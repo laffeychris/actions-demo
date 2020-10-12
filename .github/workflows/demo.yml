@@ -138,14 +138,16 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: custom
-          fields: workflow,commit,repo,ref,author,took,job
+          fields: all
           custom_payload: |
             {
               username: 'github-action',
               icon_emoji: ':github:',
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: `${process.env}\n${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} succeeded in ${process.env.AS_TOOK}`,
+                text: `${process.env.AS_WORKFLOW}\n
+                       ${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} \n
+                       by ${process.env.AS_AUTHOR} succeeded in ${process.env.AS_TOOK}`,
                 title: 'Demo Build Action'
               }]
             }
