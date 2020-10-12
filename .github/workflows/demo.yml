@@ -157,13 +157,13 @@ jobs:
               username: 'github-action',
               icon_emoji: ':github:',
               attachments: [{
-                title: `Action - ${process.env.AS_WORKFLOW}`,
-                text: `_Commit - ${process.env.AS_COMMIT}_\n
+                title: `Action - ${process.env.AS_WORKFLOW}[${github.run_number}]`,
+                text: `_Commit - ${needs.init.outputs.git_sha}_\n
             Jobs:\n
-            ${needs.init.name} - ${needs.init.result}\n
-            ${needs.test.name} - ${needs.test.result}\n
-            ${needs.build.name} - ${needs.build.result}\n\n
-            by ${process.env.AS_AUTHOR}`
+            init - ${needs.init.result}\n
+            test - ${needs.test.result}\n
+            build - ${needs.build.result}\n\n
+            by ${needs.init.outputs.git_user}`
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning'
               }]
             }
