@@ -15,6 +15,12 @@ jobs:
     name: Configure context and vars
     runs-on: ubuntu-latest
 
+    # Map a step output to a job output
+    outputs:
+      git_sha: ${{ steps.vars.outputs.git_sha }}
+      git_user: ${{ steps.vars.outputs.git_user }}
+      git_branch: ${{ steps.vars.outputs.git_branch }}
+
     steps:
       # Examine the context passed from github
       - name: Dump GitHub context
@@ -30,15 +36,15 @@ jobs:
         id: vars
         shell: bash
         run: |
-          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "##[set-output name=git_sha;]$(git rev-parse --short HEAD)"
+          echo "##[set-output name=git_branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "##[set-output name=git_user;]$(echo ${{ toJson(github.event.head_commit.committer.email) }})"
 
       - name: Echo Variables
         run: |
-          echo "branch: ${{ steps.vars.outputs.branch }}"
           echo "git-sha: ${{ steps.vars.outputs.git_sha }}"
           echo "git_user: ${{ steps.vars.outputs.git_user }}"
+          echo "git_branch: ${{ steps.vars.outputs.git_branch }}"
 
   test:
     name: Unit Test & Configuration
@@ -56,6 +62,10 @@ jobs:
     # Sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v2
+
+      # test mapping
+      - name: Test Mapping
+        run: echo ${{needs.init.outputs.git_sha}} ${{needs.init.outputs.git_user}}
 
       # Create python env
       - name: Install Python 3
@@ -125,3 +135,5 @@ jobs:
       # Echo image name after build
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+  notify:
