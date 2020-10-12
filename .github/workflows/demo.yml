@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "##[set-output name=git_sha;]$(git rev-parse --short HEAD)"
-          echo "##[set-output name=git_user;]$( echo github.event.head_commit.committer.email )
+          echo "##[set-output name=git_user;]$( echo ${github.event.head_commit.committer.email} )
 
   test:
     name: Unit Test Configuration
