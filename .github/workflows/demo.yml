@@ -55,11 +55,11 @@ jobs:
     name: Build & Publish Docker Image
     runs-on: ubuntu-latest
     steps:
-      - # Create QEMU
+      # Create QEMU
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
-      - # Create Docker Buildx CLI tool
+      # Create Docker Buildx CLI tool
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
