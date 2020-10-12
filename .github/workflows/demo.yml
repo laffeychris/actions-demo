@@ -47,8 +47,8 @@ jobs:
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "::set-output name=git_short::$(git rev-parse --short HEAD)"
 
-      - name: Echo Context
-        run: echo "Context ${{ github.actor }}"
+      - name: Echo Committer Email
+        run: echo "Committer ${{ github.event.head_commit.committer}}"
 
   test:
     name: Unit Test Configuration
