@@ -60,9 +60,9 @@ jobs:
       # Test that vars are shared between jobs
       - name: Echo Variables
         run: |
-          echo "branch: ${{ steps.vars.outputs.branch }}"
-          echo "git-sha: ${{ steps.vars.outputs.git_sha }}"
-          echo "git_user: ${{ steps.vars.outputs.git_user }}"
+          echo "branch: ${{ jobs.init.steps.vars.outputs.branch }}"
+          echo "git-sha: ${{ jobs.init.steps.vars.outputs.git_sha }}"
+          echo "git_user: ${{ jobs.init.steps.vars.outputs.git_user }}"
 
       # Create python env
       - name: Install Python 3
