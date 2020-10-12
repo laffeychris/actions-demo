@@ -94,15 +94,8 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      # Checkout (needed again for Dockerfile)
       - uses: actions/checkout@v2
-      # Set variables for later use
-      - name: Declare Variables
-        id: vars
-        shell: bash
-        run: |
-          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          echo "##[set-output name=git_sha;]$(git rev-parse --short HEAD)"
-          echo "##[set-output name=git_user;]$(echo ${{ toJson(github.event.head_commit.committer.email) }})"
 
       # Create QEMU
       - name: Set up QEMU
@@ -130,7 +123,7 @@ jobs:
           push: true
           tags: |
             laffeychris/demo_image:latest
-            laffeychris/demo_image:${{ steps.vars.outputs.git_sha }}
+            laffeychris/demo_image:${{ needs.init.outputs.git_sha }}
 
       # Echo image name after build
       - name: Image digest
