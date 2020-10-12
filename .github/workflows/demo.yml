@@ -26,7 +26,7 @@ jobs:
         run: echo "Event ${{ github.event}}"
 
       - name: Echo Event json
-          run: echo "Event ${{ toJson(github.event)}}"
+        run: echo "Event ${{ toJson(github.event) }}"
 
       - name: Declare Variables
         id: vars
