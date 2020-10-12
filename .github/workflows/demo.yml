@@ -34,7 +34,9 @@ jobs:
           pip install -r requirements.txt
 
       # Runs a set of commands using the runners shell
-      - name: Run Tests
+      - name: Run Tests & Coverage
         run: |
           echo Running tests...
-          nosetests test/
+          nosetests test/ --with-coverage --cover-package=severn --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
+          ls ./coverage
+          cat ./coverage/index.html
