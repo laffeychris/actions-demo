@@ -158,9 +158,12 @@ jobs:
               icon_emoji: ':github:',
               attachments: [{
                 title: `Action - ${process.env.AS_WORKFLOW}[${{github.run_number}}]`,
-                text: `_Commit - ${needs.init.outputs.git_sha}_\n
+                text: `_Commit - ${{needs.init.outputs.git_sha}}_\n
             Jobs:\n
-            by ${needs.init.outputs.git_user}`
+            init - ${{needs.init.result}}\n
+            test - ${{needs.test.result}}\n
+            build - ${{needs.build.result}}\n\n
+            by ${{needs.init.outputs.git_user}}`
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning'
               }]
             }
