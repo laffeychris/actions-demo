@@ -38,6 +38,7 @@ jobs:
         run: |
           echo Running tests...
           nosetests test/ --with-coverage --cover-package=demo --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
+          apt-get -y install xmllint
           ls .
           echo grep percent coverage
           echo "cat //html/body/div/div/h1/span" |  xmllint --html --shell coverage/index.html | grep -oP '[\.\d]+(?=%)'
