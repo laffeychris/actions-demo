@@ -139,7 +139,7 @@ jobs:
         with:
           status: custom
           fields: all
-          job_name: Send Notification of Build Status
+          job_name: ${{ job.notify.name }}
           custom_payload: |
             {
               username: 'github-action',
