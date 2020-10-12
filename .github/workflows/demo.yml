@@ -32,11 +32,11 @@ jobs:
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "##[set-output name=git_sha;]$(git rev-parse --short HEAD)"
-          echo "##[set-output name=git_user;]$(echo ${{toJson(github.event.head_commit.committer.email}}))"
+          echo "##[set-output name=git_user;]$(echo ${ toJson(github.event.head_commit.committer.email) } ))"
 
   test:
-    needs: init
     name: Unit Test Configuration
+    needs: init
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -80,8 +80,8 @@ jobs:
 
   build:
     # we need test to pass before building
-    needs: test
     name: Build & Publish Docker Image
+    needs: test
     runs-on: ubuntu-latest
     steps:
       # Create QEMU
