@@ -134,11 +134,6 @@ jobs:
       - build
     runs-on: ubuntu-latest
     steps:
-      # Examine the context of the steps
-      - name: Dump process context
-        env:
-          PROCESS_CONTEXT: ${{ toJson(process) }}
-        run: echo "$PROCESS_CONTEXT"
       - name: Send slack notification
         uses: 8398a7/action-slack@v3
         with:
