@@ -152,8 +152,8 @@ jobs:
               username: 'github-action',
               icon_emoji: ':github:',
               attachments: [{
-                title: `Action - ${{process.env.AS_WORKFLOW}}[${{github.run_number}}]`,
-                text: `_Commit - ${{needs.init.outputs.git_sha}}_\n
+                title: `Action - ${{github.head_commit.AS_WORKFLOW}}[${{github.run_number}}]`,
+                text: `_Commit - [${{needs.init.outputs.git_sha}}](${{github.head_commit.url}})_\n
             Jobs:\n
             init - ${{needs.init.result}}\n
             test - ${{needs.test.result}}\n
