@@ -135,5 +135,3 @@ jobs:
       # Echo image name after build
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-
-  notify:
