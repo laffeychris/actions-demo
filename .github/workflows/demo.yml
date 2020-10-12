@@ -28,6 +28,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
 
+      - name: Declare Variables
+        id: vars
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "::set-output name=git_short::$(git rev-parse --short HEAD)"
+
+      - name: Echo Variables
+        run: |
+          echo "Branch: ${{ steps.vars.outputs.branch }}"
+          echo "Sha: ${{ steps.vars.outputs.git_short }}"
+
+
       # Create python env
       - name: Install Python 3
         uses: actions/setup-python@v2
@@ -79,7 +92,9 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: laffeychris/demo_app:latest
+          tags: |
+            laffeychris/demo_app:latest
+            laffeychris/demo_app:latest
 
       # Echo image name after build
       - name: Image digest
