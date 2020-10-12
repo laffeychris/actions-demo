@@ -139,7 +139,7 @@ jobs:
       - name: Echo job
         run: echo ${{ toJson(job) }}
       - name: Echo needs
-          run: echo ${{ toJson(needs) }}
+        run: echo ${{ toJson(needs) }}
       - name: Send slack notification
         uses: 8398a7/action-slack@v3
         with:
