@@ -6,7 +6,7 @@ from demo.datasource.item_db import Item, ItemDB
 from demo.datasource.dynamo_db import local_dynamo_client, local_dynamo_resource
 
 
-def delete_local_table(client, table_name):
+def delete_local_table(table_name):
     """Delete local Dynamodb table.
 
     :param client: Botot3 DynamoDB client
@@ -15,22 +15,17 @@ def delete_local_table(client, table_name):
     :type table_name: str
     :return:
     """
-    assert client._endpoint.host == 'http://127.0.0.1:8000', "Can only delete local endpoint," \
-                                                             " not {}".format(client._endpoint.host)
-    response = client.delete_table(
+    assert local_dynamo_client._endpoint.host == 'http://127.0.0.1:8000', "Can only delete local endpoint," \
+                                                 " not {}".format(local_dynamo_client._endpoint.host)
+    response = local_dynamo_client.delete_table(
         TableName=table_name
     )
     print("Deleting local table '{}': {}".format(table_name, response))
 
 
-def create_test_table(resource):
-    """Create 'test' table locally.
-
-    :param resource: Resource to build table against
-    :param resource: boto3.resource
-    :return: Pointer to local table
-    """
-    response = resource.create_table(
+def create_test_table():
+    """Create 'test' table locally."""
+    response = local_dynamo_resource.create_table(
         AttributeDefinitions=[
             {
                 'AttributeName': 'item_id',
@@ -53,7 +48,7 @@ def create_test_table(resource):
         }
     )
     print("Creating local table 'test-items': {}".format(response))
-    return resource.Table('test-items')
+    return local_dynamo_resource.Table('test-items')
 
 
 class TestItemDB(TestCase):
@@ -68,14 +63,14 @@ class TestItemDB(TestCase):
     @mock.patch('demo.datasource.item_db.dynamodb', local_dynamo_resource)
     def setUp(self):
         try:
-            self.table = create_test_table(local_dynamo_resource)
+            self.table = create_test_table()
             self.item_db = ItemDB()
         except ClientError as e:
             print(e.response['Error']['Code'])
-            delete_local_table(local_dynamo_client, 'test-items')
+            delete_local_table('test-items')
 
     def tearDown(self):
-        delete_local_table(local_dynamo_client, 'test-items')
+        delete_local_table('test-items')
 
     def test_upload_rule(self):
         """Test that a rule is uploaded correctly."""
