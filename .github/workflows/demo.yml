@@ -152,12 +152,13 @@ jobs:
               username: 'github-action',
               icon_emoji: ':github:',
               attachments: [{
-                title: `Action - ${{github.repository}} [${{github.run_number}}]`,
+                title: `Action: ${{github.repository}}[${{github.run_number}}]`,
+                title_link: `${{github.event.repository.html_url}}/actions/runs/${{github.run_id}}`,
                 text: `_Commit - [${{needs.init.outputs.git_sha}}](${{github.event.head_commit.url}})_\n
             Jobs:\n
-            init - ${{needs.init.result}}\n
-            test - ${{needs.test.result}}\n
-            build - ${{needs.build.result}}\n\n
+            >init - ${{needs.init.result}}\n
+            >test - ${{needs.test.result}}\n
+            >build - ${{needs.build.result}}\n
             by ${{needs.init.outputs.git_user}}`,
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning'
               }]
