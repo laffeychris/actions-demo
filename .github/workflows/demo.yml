@@ -139,16 +139,17 @@ jobs:
         with:
           status: custom
           fields: all
+          job_name: Send Notification of Build Status
           custom_payload: |
             {
               username: 'github-action',
               icon_emoji: ':github:',
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: `${process.env.AS_WORKFLOW}\n
-                       ${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} \n
-                       by ${process.env.AS_AUTHOR} succeeded in ${process.env.AS_TOOK}`,
-                title: 'Demo Build Action'
+                text: `${process.env.AS_JOB}\n
+            (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF}\n
+            by ${process.env.AS_AUTHOR} succeeded in ${process.env.AS_TOOK}`,
+                title: 'Action - ${process.env.AS_WORKFLOW}'
               }]
             }
         env:
