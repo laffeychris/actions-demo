@@ -32,6 +32,7 @@ jobs:
         run: |
           echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "##[set-output name=git_sha;]$(git rev-parse --short HEAD)"
+          echo "##[set-output name=git_user;]$(echo ${{ toJson(github.event.head_commit.committer.email) }})"
 
       - name: Echo Variables
         run: |
