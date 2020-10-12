@@ -11,8 +11,6 @@ on:
 
 # Run jobs sequentially or in parallel
 jobs:
-  strategy:
-    max-parallel: 1
   test:
     name: Unit Test Configuration
     # The type of runner that the job will run on
@@ -49,6 +47,8 @@ jobs:
           args: -p 8000:8000
 
   build:
+    # we need test to pass before building
+    needs: test
     name: Build & Publish Docker Image
     runs-on: ubuntu-latest
     steps:
