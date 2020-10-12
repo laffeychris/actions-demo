@@ -63,10 +63,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # test mapping
-      - name: Test Mapping
-        run: echo ${{needs.init.outputs.git_sha}} ${{needs.init.outputs.git_user}}
-
       # Create python env
       - name: Install Python 3
         uses: actions/setup-python@v2
@@ -91,7 +87,9 @@ jobs:
   build:
     # we need test to pass before building
     name: Build & Publish Docker Image
-    needs: test
+    needs:
+      - init
+      - test
     runs-on: ubuntu-latest
     steps:
       # Checkout (needed again for Dockerfile)
