@@ -2,7 +2,6 @@ from unittest import TestCase, skip
 from demo.demo import add_numbers, multiply_numbers
 
 
-@skip
 class TestFunctionsFail(TestCase):
 
     def test_add(self):

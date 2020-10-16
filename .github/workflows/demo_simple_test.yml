@@ -1,0 +1,50 @@
+name: actions-demo
+
+# Controls when the action will run. 
+# only run on pull request action
+on:
+  pull_request:
+    branches:
+      - main
+
+# Run jobs sequentially or in parallel
+jobs:
+  init:
+    name: Configure context and vars
+    runs-on: ubuntu-latest
+
+    # Map a step output to a job output
+    outputs:
+      git_sha: ${{ steps.vars.outputs.git_sha }}
+      git_user: ${{ steps.vars.outputs.git_user }}
+      git_branch: ${{ steps.vars.outputs.git_branch }}
+
+  test:
+    name: Unit Test & Configuration
+    # The type of runner that the job will run on (can be a container)
+    runs-on: ubuntu-latest
+
+    # Sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v2
+
+      # Create python env
+      - name: Install Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+
+      # Install dependencies to use
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Runs a set of commands using the runners shell
+      - name: Run Tests & Coverage
+        env:
+          AWS_ACCESS_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+        run: |
+          echo Running tests...
+          nosetests test/test_pass.py --with-coverage --cover-package=demo --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
