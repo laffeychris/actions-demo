@@ -4,6 +4,8 @@ name: actions-demo-pr-test
 # only run on pull request action
 on:
   pull_request:
+    types:
+      - opened
     branches:
       - main
 
