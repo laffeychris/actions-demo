@@ -3,7 +3,7 @@ name: actions-demo
 # Controls when the action will run. 
 # only run on pull request action
 on:
-  pull_request:
+  push:
     branches:
       - main
 
