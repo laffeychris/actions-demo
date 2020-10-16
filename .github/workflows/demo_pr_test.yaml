@@ -9,16 +9,6 @@ on:
 
 # Run jobs sequentially or in parallel
 jobs:
-  init:
-    name: Configure context and vars
-    runs-on: ubuntu-latest
-
-    # Map a step output to a job output
-    outputs:
-      git_sha: ${{ steps.vars.outputs.git_sha }}
-      git_user: ${{ steps.vars.outputs.git_user }}
-      git_branch: ${{ steps.vars.outputs.git_branch }}
-
   test:
     name: Unit Test & Configuration
     # The type of runner that the job will run on (can be a container)
