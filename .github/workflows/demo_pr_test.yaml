@@ -47,4 +47,4 @@ jobs:
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
         run: |
           echo Running tests...
-          nosetests test/test_pass.py --with-coverage --cover-package=demo --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
+          nosetests test/test_fail.py --with-coverage --cover-package=demo --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
