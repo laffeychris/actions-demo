@@ -37,7 +37,7 @@ jobs:
       - name: Run Tests & Coverage
         run: |
           echo Running tests...
-          nosetests test/test_fail.py --with-coverage --cover-package=demo --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
+          nosetests test/test_pass.py --with-coverage --cover-package=demo --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
 
   scan:
     name: Code Scanning
@@ -47,6 +47,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: PyCharm Python Security Scanner
-        uses: tonybaloney/pycharm-security@master
+        uses: tonybaloney/pycharm-security@1.20.1
         with:
           fail_on_warnings: yes

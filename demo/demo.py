@@ -16,10 +16,10 @@ def generate_random():
     return np.random
 
 
-def fail_security_func():
-    """A badly written function to be highlighted."""
-    try:
-        x = 1 + 1
-    except Exception as e:
-        pass
-    return x
+# def fail_security_func():
+#     """A badly written function to be highlighted."""
+#     try:
+#         x = 1 + 1
+#     except Exception as e:
+#         pass
+#     return x
