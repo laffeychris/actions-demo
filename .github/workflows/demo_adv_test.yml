@@ -27,7 +27,7 @@ jobs:
 
       # Checks-out your repository under $GITHUB_WORKSPACE
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       # Set variables for later use
       - name: Declare Variables
@@ -53,7 +53,7 @@ jobs:
     # Sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       # Create python env
       - name: Install Python 3
@@ -86,7 +86,7 @@ jobs:
     steps:
       # Checkout (needed again for Dockerfile)
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       # Create QEMU
       - name: Set up QEMU
