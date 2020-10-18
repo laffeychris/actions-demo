@@ -36,3 +36,4 @@ jobs:
         run: |
           echo Running tests...
           nosetests test/test_pass.py --with-coverage --cover-package=demo --cover-inclusive --cover-tests --cover-html --cover-html-dir=./coverage
+

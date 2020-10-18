@@ -15,3 +15,11 @@ def generate_random():
     """Generate random number."""
     return np.random
 
+
+# def fail_security_func():
+#     """A badly written function to be highlighted."""
+#     try:
+#         x = 1 + 1
+#     except Exception as e:
+#         pass
+#     return x
