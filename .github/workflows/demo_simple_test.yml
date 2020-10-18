@@ -1,7 +1,7 @@
 name: actions-demo-simple
 
 # Controls when the action will run. 
-# only run on pull request action
+# only run on push action
 on:
   push:
     branches:
