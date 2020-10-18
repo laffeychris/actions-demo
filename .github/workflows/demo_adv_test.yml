@@ -50,6 +50,13 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    # Run side-car docker container (e.g. how severn-api uses it)
+    services:
+      dynamodb:
+        image: docker://amazon/dynamodb-local:1.13.4
+        ports:
+          - 8000:8000
+
     # Sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout
