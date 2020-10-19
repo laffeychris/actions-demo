@@ -11,7 +11,8 @@ on:
 jobs:
   test:
     name: Unit Test & Configuration
-    # The type of runner that the job will run on (can be a container)
+    # The type of runner that the job will run on
+    # Self-hosted runners can be specified by using labels
     runs-on: ubuntu-latest
 
     # Sequence of tasks that will be executed as part of the job
