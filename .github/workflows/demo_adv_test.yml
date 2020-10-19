@@ -4,7 +4,7 @@ name: actions-demo-advance
 on:
   push:
     branches:
-      - main
+      - other
 
 # Run jobs sequentially or in parallel
 jobs:
